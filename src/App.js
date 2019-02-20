@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import TaskList from './todo/TaskList'
 import InputTask from "./todo/InputTask";
 import './App.css';
+import Github from "./github/index";
 
 class App extends Component {
   state = {
@@ -25,6 +26,7 @@ class App extends Component {
         <TaskList tasks={this.state.tasks} />
         <InputTask addTask={this.addTask} id={this.state.id} />
         <br />
+        <Github/>
       </div>
     );
   }
