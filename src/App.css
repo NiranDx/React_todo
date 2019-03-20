@@ -33,4 +33,10 @@
     transform: rotate(360deg);
   }
 }
+div{
+  background-color: gray;
+}
+h1{
+  margin: 0;
+}
 

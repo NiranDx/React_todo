@@ -1,35 +1,53 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+import './App.css';
 import TaskList from './todo/TaskList'
 import InputTask from "./todo/InputTask";
-import './App.css';
-import Github from "./github/index";
+import {createStore,combineReducers} from 'redux'
+import {Provider} from 'react-redux'
 
-class App extends Component {
-  state = {
-    tasks: [{ id: 1, task: 'Do homework' ,address: 'Phusket' ,date:'2019-2-14'},
-    { id: 2, task: 'Read book',address: 'BKK' ,date:'2019-2-15'}],
-    id: 3
-  }
+export const addtask = (value) => ({
+  type:"ADDTASK",
+  payload: value
+})
 
-  addTask = (task,address,date) => {
-    this.setState({
-      tasks: [...this.state.tasks, { id: this.state.id, task,address,date}],
-      id: this.state.id + 1
-    })
-  }
-
-
-  render() {
-    return (
-      <div className="App">
-        <h1>Todo</h1>
-        <TaskList tasks={this.state.tasks} />
-        <InputTask addTask={this.addTask} id={this.state.id} />
-        <br />
-        <Github/>
-      </div>
-    );
-  }
+const initState = {
+id:2,
+  tasks: [
+          {id: 1, task: 'Do homework'},
+          {id: 2, task: 'coding '}],
 }
 
+const taskReducer = (state = initState , action) => {
+  switch(action.type){
+    case "ADDTASK":
+          state = {
+           ...state,
+
+           tasks:[...state.tasks,{id:state.tasks.id+=1,task:action.payload,}]
+          }
+    default:
+  }
+  return state
+}
+const rootReducer = combineReducers({
+  taskPass : taskReducer
+})
+export const store = createStore(rootReducer)
+
+class App extends Component {
+
+   render() {   
+       return (
+         <Provider store={store}>
+              <div><center>
+                  <h1>Todo</h1>
+                  <TaskList/>
+                  <InputTask/>
+                  <br/></center>
+              </div>
+         </Provider>
+           
+       );
+   }
+}
 export default App;

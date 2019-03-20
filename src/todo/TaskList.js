@@ -1,16 +1,23 @@
-import React, { Component } from 'react'
-
+import React,{Component} from 'react'
+import {connect} from 'react-redux'
 class TaskList extends Component {
-    render() {
-        if (this.props.tasks)
-            return (
-                <ul > {
-                    this.props.tasks.map((item) => (
-                        <li key={item.id}> {item.task} @ {item.address} date {item.date}</li>
-                    ))
-                }
-                </ul>)
+   render() {
+       console.log("in TaskList1",this.props.activitie)
+           return (
+           <ul > {
+                   this.props.activitie.tasks.map((item) => (
+                      <li key={item.id}> Todo => {item.task} </li>
+                   ))
+           
+               }
+           </ul>)
+   }
+}
+
+const mapStateToProps = (state) => {
+    return {
+        activitie:state.taskPass
     }
 }
 
-export default TaskList
+export default connect(mapStateToProps)(TaskList)
